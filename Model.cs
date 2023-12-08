@@ -1,7 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using PfsAssessment;
-using System;
-using System.Collections.Generic;
 
 public class PfsAssessmentContext : DbContext
 {

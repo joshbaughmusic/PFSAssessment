@@ -72,15 +72,19 @@ class Program
 
                     if (studentDetailsData.Id != 0)
                     {
+                        double totalGradePoints = studentDetailsData.Courses
+                        .Where(course => course.Status == "Enrolled")
+                        .Sum(course => course.Grade * course.CreditHours);
+
                         double totalCreditHours = studentDetailsData.Courses
                             .Where(course => course.Status == "Enrolled")
                             .Sum(course => course.CreditHours);
 
-                        double averageGpa = totalCreditHours > 0
-                            ? studentDetailsData.Courses.Sum(course => course.Grade * course.CreditHours) / totalCreditHours
+                        double semesterGPA = totalCreditHours > 0
+                            ? totalGradePoints / totalCreditHours
                             : 0;
 
-                        averageGpa = Math.Round(averageGpa, 2);
+                        double convertedGPA = Math.Round(semesterGPA / 100 * 4, 2);
 
                         studentDTOList.Add(new StudentDTO
                         {
@@ -88,7 +92,7 @@ class Program
                             Name = studentDetailsData.Name,
                             Email = studentDetailsData.Email,
                             TotalCreditHours = totalCreditHours,
-                            AvgSemesterGpa = averageGpa
+                            AvgSemesterGpa = convertedGPA
                         });
                     }
                     else
@@ -152,7 +156,7 @@ class Program
 
                     if (isFullTime && lowGradeCourses.Count > 0)
                     {
-                      
+
                         double remainingCreditHours = studentDetailsData.Courses
                             .Where(course => course.Status == "Enrolled")
                             .Sum(course => course.CreditHours);

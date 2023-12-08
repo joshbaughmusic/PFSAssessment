@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace PfsAssessment.Migrations
 {
     [DbContext(typeof(PfsAssessmentContext))]
-    [Migration("20231208215000_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20231208235554_initCreate")]
+    partial class initCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
